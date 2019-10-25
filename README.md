@@ -1,25 +1,47 @@
 # alexa-youtube
 ## Unofficial YouTube skill for Alexa
-__Last update: 23 Oct 2019__
+
+#### Fork of [https://github.com/ndg63276/alexa-youtube](https://github.com/ndg63276/alexa-youtube)
+
+__Last update: 25 Oct 2019__
+
+## Setup Instructions
+
+1. Go to the Alexa Console (https://developer.amazon.com/alexa/console/ask)
+2. If you have not registered as an Amazon Developer then you will need to do so. Fill in your details and ensure you answer "NO" for "Do you plan to monetize apps by charging for apps or selling in-app items" and "Do you plan to monetize apps by displaying ads from the Amazon Mobile Ad Network or Mobile Associates?"
+3. Once you are logged into your account click "Create Skill" on the right hand side.
+4. Give your skill any name, eg "My YouTube Skill".
+5. **Important** Set the language to whatever your Echo device is set to. If you are not sure, go to the Alexa app, go to Settings, Device Settings, then click on your Echo device, and look under Language. If your Echo is set to English (UK), then the skill must be English (UK), other types of English will not work!
+6. Choose "Custom" as your model, and "Provision Your Own" as your method, then click "Create Skill". On the template page, choose "Start from scratch".
+7. On the left hand side, click "JSON Editor".
+8. Delete everything in the text box, and copy in the text from [https://raw.githubusercontent.com/alex-stetson/alexa-youtube/master/InteractionModel_en.json](https://raw.githubusercontent.com/alex-stetson/alexa-youtube/master/InteractionModel_en.json), (or use InteractionModel_fr.json, InteractionModel_it.json, InteractionModel_de.json, InteractionModel_es.json for French, Italian, German or Spanish)
+9. Click "Save Model" at the top.
+10. Click "Interfaces" in the menu on the left, and enable "Audio Player" and "Video App". Click "Save Interfaces".
+11. Click "Endpoint" in the menu on the left, and select "HTTPS". Under "Default Region", URL of your backend server endpoint and select the appropriate certificate option (more details on server setup coming soon)
+12. Click "Save Endpoints"
+13. Click "Permissions", at the very bottom on the left.
+14. Turn on "Lists Read" and "Lists Write".
+15. Click "Custom" in the menu on the left.
+16. Click "Invocation" in the menu on the left.
+17. If you want to call the skill anything other than "youtube", change it here. Click "Save Model" if you change anything.
+18. Click "Build Model". This will take a minute, be patient. It should tell you if it succeeded.
+19. **Important:** At the top, click "Test". Where it says "Test is disabled for this skill", change the dropdown from "Off" to "Development".
 
 
-## Skill is now full
-* This skill has become so popular, I am hitting the limits on the free AWS lambda tier, which is 800000 seconds of CPU time per month!
-* Unfortunately this means I am getting charged by Amazon, so I need some way to recoup my costs.
-* So I am now asking for donations through https://www.patreon.com/alexayoutube, or by clicking the **Sponsor** button at the top of this page. For **$3/month**, I will give you a unique ARN which you can use to run this skill. Email me at ndg63276@gmail.com to receive your ARN.
+## Other relevant sections from original README
 
-## Features
+### Features
 * Play audio from YouTube videos
 * Play video (if supported) on live videos or if you ask for just one specific video (command 8)
 * Makes a list of all the videos played, in the Alexa app
 
-## Launching
-* In English, say "Alexa, launch YouTube". 
-* In German, say "Alexa, öffne YouTube". 
+### Launching
+* In English, say "Alexa, launch YouTube".
+* In German, say "Alexa, öffne YouTube".
 * In Italian, say "Alexa, avvia YouTube".
 * In Spanish, say "Alexa, abrir YouTube".
 
-## Skill Commands
+### Skill Commands
 
 1. Play a video, eg "Alexa, ask YouTube to play Gangnam Style"
 2. Play a playlist, eg "Alexa, ask YouTube to play playlist Ultimate Beyonce"
@@ -36,45 +58,23 @@ __Last update: 23 Oct 2019__
 Command 7 doesn't seem to work on Generation 1 Echo's, no idea why.
 Commands 8, 9, 10 and 11 are only available in English at the moment.
 
-## Known issues
+### Known issues
 
 1. Some videos just fail, it's not clear why, they work locally. The skill just moves to the next video on the playlist, but this can mean sometimes she announces a video that doesn't play.
 2. It appears this skill only works on Amazon Echo products, not on 3rd party products that support Alexa. If you get it to work on another device, please let me know.
 3. Live videos work on Gen 2 devices onwards, not on the original Gen 1 Echo.
 
-## Setup Instructions
-
-1. Go to the Alexa Console (https://developer.amazon.com/alexa/console/ask)
-2. If you have not registered as an Amazon Developer then you will need to do so. Fill in your details and ensure you answer "NO" for "Do you plan to monetize apps by charging for apps or selling in-app items" and "Do you plan to monetize apps by displaying ads from the Amazon Mobile Ad Network or Mobile Associates?"
-3. Once you are logged into your account click "Create Skill" on the right hand side.
-4. Give your skill any name, eg "My YouTube Skill".
-5. **Important** Set the language to whatever your Echo device is set to. If you are not sure, go to the Alexa app, go to Settings, Device Settings, then click on your Echo device, and look under Language. If your Echo is set to English (UK), then the skill must be English (UK), other types of English will not work!
-6. Choose "Custom" as your model, and "Provision Your Own" as your method, then click "Create Skill". On the template page, choose "Start from scratch".
-7. On the left hand side, click "JSON Editor".
-8. Delete everything in the text box, and copy in the text from https://raw.githubusercontent.com/ndg63276/alexa-youtube/master/InteractionModel_en.json, (or use InteractionModel_fr.json, InteractionModel_it.json, InteractionModel_de.json, InteractionModel_es.json for French, Italian, German or Spanish)
-9. Click "Save Model" at the top.
-10. Click "Interfaces" in the menu on the left, and enable "Audio Player" and "Video App". Click "Save Interfaces".
-11. Click "Endpoint" in the menu on the left, and select "AWS Lambda ARN". Under "Default Region", put the ARN. You can get an ARN by sponsoring me on https://www.patreon.com/alexayoutube, or by clicking the **Sponsor** button at the top of this page. (If you would like to test the skill before sponsoring me, put arn:aws:lambda:eu-west-1:175548706300:function:YouTubeTest - but this will only play Gangnam Style.)
-12. Click "Save Endpoints"
-13. Click "Permissions", at the very bottom on the left.
-14. Turn on "Lists Read" and "Lists Write".
-15. Click "Custom" in the menu on the left.
-16. Click "Invocation" in the menu on the left.
-17. If you want to call the skill anything other than "youtube", change it here. Click "Save Model" if you change anything.
-18. Click "Build Model". This will take a minute, be patient. It should tell you if it succeeded.
-19. **Important:** At the top, click "Test". Where it says "Test is disabled for this skill", change the dropdown from "Off" to "Development". 
-
-## Keeping a list of what you have played
+### Keeping a list of what you have played
 This skill can make a list of the last 90 videos played, but you have to give it permissions in the Alexa app:
 1. Go to the Alexa app on your phone. In the menu, go to "Skills & Games", then "Your Skills", then scroll to the right and click on "Dev".
-2. Click on your YouTube skill. You should see a button marked "Settings", click that. 
+2. Click on your YouTube skill. You should see a button marked "Settings", click that.
 3. Then press on "Manage Settings", and tick the boxes marked "Lists Read Access" and "Lists Write Access", and press "Save Settings".
 4. Say "Alexa, launch YouTube", that will create the list, and from then on, videos will be added to it.
 The list can be viewed in the Alexa app, click Lists from the main menu.
 
 That's it!
 
-## FAQ
+### FAQ
 * **Alexa tells me she can't find any supported video skills, what does that mean?**
 Alexa is trying to be too clever, and not launching this skill. Start your request by saying 'Alexa, launch YouTube' and then when she says 'Welcome to YouTube', ask for the video you want.
 * **She still says she can't find any video skills.**
