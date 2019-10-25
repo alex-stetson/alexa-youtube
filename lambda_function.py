@@ -193,8 +193,6 @@ def build_video_response(title, output, url):
 # --------------- Main handler ------------------
 
 def lambda_handler(event, context):
-    if 'expires' in environ and int(datetime.strftime(datetime.now(),'%Y%m%d')) > int(environ['expires']):
-        return skill_expired()
     global strings
     if event['request']['locale'][0:2] == 'fr':
         strings = strings_fr
@@ -706,8 +704,6 @@ def search(event):
     query = ''
     if 'slots' in intent and 'query' in intent['slots']:
         query = intent['slots']['query']['value']
-    if environ['AWS_LAMBDA_FUNCTION_NAME'] == 'YouTubeTest':
-        query = 'gangnam style'
     logger.info('Looking for: ' + query)
     should_end_session = True
     intent_name = intent['name']
@@ -946,7 +942,7 @@ def start_over(event):
     if title is None:
         speech_output = strings['novideo']
         return build_response(build_short_speechlet_response(speech_output, should_end_session))
-    speech_output = strings['playing']+" " + title    
+    speech_output = strings['playing']+" " + title
     return build_response(build_cardless_audio_speechlet_response(speech_output, should_end_session, next_url, next_token))
 
 def say_video_title(event):
@@ -1094,10 +1090,3 @@ def failed(event):
     if title is None:
         return do_nothing()
     return build_response(build_audio_enqueue_response(should_end_session, next_url, current_token, next_token, playBehavior))
-
-def skill_expired():
-    speech_output='<speak><voice name="Brian"><prosody rate="medium">'
-    speech_output += 'Hi there, this is the developer. Unfortunately your patreon subscription has expired. '
-    speech_output += 'If you would like to continue using this skill, please go to patreon.com/alexayoutube to renew your subscription. '
-    speech_output += '</prosody></voice></speak> '
-    return build_response(build_cardless_speechlet_response(speech_output, '', True, 'SSML'))
